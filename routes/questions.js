@@ -32,8 +32,12 @@ router.post("/add", (req, res, next) => {
   Questions.create({
     questionId: req.body.questionId,
     questionLevel: req.body.questionLevel,
+    questionUnity: req.body.questionUnity,
     questionTitle: req.body.questionTitle,
-    questionOptions: req.body.questionOptions,
+    option_1: req.body.option_1,
+    option_2: req.body.option_2,
+    option_3: req.body.option_3,
+    option_4: req.body.option_4,
     answerAnalysis: req.body.answerAnalysis
   }, (error, Questions) => {
      if (error) {
