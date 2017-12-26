@@ -21,5 +21,30 @@ mongoose.connection.on("disconnected",function () {
 });
 
 router.post("/add", (req, res, next) => {
-  let questionId = req.body.questionId
+  // let questionId = req.body.questionId,
+  //     questionLevel = req.body.questionLevel,
+  //     questionTitle = req.body.questionTitle,
+  //     questionOptions = req.body.questionOptions,
+  //     answerAnalysis = req.body.answerAnalysis
+  
+  let Questions = require('../models/questions')
+
+  Questions.create({
+    questionId: req.body.questionId,
+    questionLevel: req.body.questionLevel,
+    questionTitle: req.body.questionTitle,
+    questionOptions: req.body.questionOptions,
+    answerAnalysis: req.body.answerAnalysis
+  }, (error, Questions) => {
+     if (error) {
+        res.json({
+          status: '1',
+          msg: error.message
+        })
+     } else {
+       console.log("添加成功")
+     }
+  })
 })
+
+module.exports = router;
