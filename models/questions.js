@@ -5,18 +5,14 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 let questionSchema = new Schema({
-  "questionId": String,
-  "questionLevel": {
-    "level": String,
-    "unit": String
-  },
+  "questionId": Number,
+  "questionLevel": String,
+  "questionUnit": String,
   "questionTitle": String,
-  "questionOption": {
-    "1": String,
-    "2": String,
-    "3": String,
-    "4": String
-  },
+  "option_1": String,
+  "option_2": String,
+  "option_3": String,
+  "option_4": String,
   "correctAnswer": Number,
   "answerAnalysis": String 
 })
