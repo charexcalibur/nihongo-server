@@ -32,12 +32,13 @@ router.post("/add", (req, res, next) => {
   Questions.create({
     questionId: req.body.questionId,
     questionLevel: req.body.questionLevel,
-    questionUnity: req.body.questionUnity,
+    questionUnit: req.body.questionUnit,
     questionTitle: req.body.questionTitle,
     option_1: req.body.option_1,
     option_2: req.body.option_2,
     option_3: req.body.option_3,
     option_4: req.body.option_4,
+    correctAnswer: req.body.correctAnswer,
     answerAnalysis: req.body.answerAnalysis
   }, (error, Questions) => {
      if (error) {
@@ -55,20 +56,48 @@ router.post("/add", (req, res, next) => {
   })
 })
 
-router.get("/show", (req, res, next) => {
+router.get('/num', (req, res, next) => {
   let Questions = require('../models/questions')
 
-  Questions.find((error, Questions) => {
-    if(error) {
+  Questions.find((err, doc) => {
+    if (err) {
       res.json({
         status: '1',
-        msg: error.message
+        msg: err.message
       })
     } else {
       res.json({
         status: '0',
         msg: '',
-        result: Questions
+        result: {
+          count: doc.length
+        }
+      })
+    }
+  })
+})
+
+router.get("/show", (req, res, next) => {
+  let Questions = require('../models/questions')
+  let currentPage = parseInt(req.param('currentPage'))
+  let pageSize = parseInt(req.param('pageSize'))
+  let skip = (currentPage-1)*pageSize
+  let params = {}
+
+  let questionsModel = Questions.find(params).skip(skip).limit(pageSize)
+  questionsModel.exec((err, doc) => {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: err.message
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: '',
+        result: {
+          list: doc
+        }
       })
     }
   })
