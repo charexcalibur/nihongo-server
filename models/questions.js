@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 let questionSchema = new Schema({
-  "questionId": String,
+  "questionId": Number,
   "questionLevel": String,
   "questionUnit": String,
   "questionTitle": String,
