@@ -47,8 +47,16 @@ router.post("/add", (req, res, next) => {
         })
      } else {
        console.log("添加成功")
+       res.json({
+        status: '0',
+        msg: '添加成功'
+      })
      }
   })
+})
+
+router.get("/show", (req, res, next) => {
+  
 })
 
 module.exports = router;
