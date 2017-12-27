@@ -56,7 +56,22 @@ router.post("/add", (req, res, next) => {
 })
 
 router.get("/show", (req, res, next) => {
-  
+  let Questions = require('../models/questions')
+
+  Questions.find((error, Questions) => {
+    if(error) {
+      res.json({
+        status: '1',
+        msg: error.message
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: '',
+        result: Questions
+      })
+    }
+  })
 })
 
 module.exports = router;
