@@ -103,4 +103,24 @@ router.get("/show", (req, res, next) => {
   })
 })
 
+router.post('/del', (req, res, next) => {
+  let Questions = require('../models/questions')
+
+  let questionId = req.body.questionId
+
+  Questions.remove({questionId: questionId}, (err, doc) => {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: err.message
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: 'del'
+      })
+    }
+  })
+})
+
 module.exports = router;
