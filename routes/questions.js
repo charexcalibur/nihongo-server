@@ -20,15 +20,34 @@ mongoose.connection.on("disconnected",function () {
    console.log("MongoDB is disconnected");
 });
 
-router.post("/add", (req, res, next) => {
-  // let questionId = req.body.questionId,
-  //     questionLevel = req.body.questionLevel,
-  //     questionTitle = req.body.questionTitle,
-  //     questionOptions = req.body.questionOptions,
-  //     answerAnalysis = req.body.answerAnalysis
-  
-  let Questions = require('../models/questions')
+// 检查id
+router.get('/check', (req, res, next) => {
+  let questionId = parseInt(req.param('questionId'))
+  console.log(typeof questionId)
 
+  Questions.find({questionId: questionId},(err, doc) => {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: '未找到相同id'
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: '已找到相同id',
+        result: {
+          idNum: doc.length
+        }
+      })
+    }
+  })
+
+})
+
+// 添加题目
+router.post("/add", (req, res, next) => {
+  let questionId = parseInt(req.body.questionId)
+  console.log(typeof questionId)
   Questions.create({
     questionId: req.body.questionId,
     questionLevel: req.body.questionLevel,
@@ -57,7 +76,6 @@ router.post("/add", (req, res, next) => {
 })
 
 router.get('/num', (req, res, next) => {
-  let Questions = require('../models/questions')
 
   Questions.find((err, doc) => {
     if (err) {
