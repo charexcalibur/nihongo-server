@@ -75,6 +75,39 @@ router.post("/add", (req, res, next) => {
   })
 })
 
+// 更新题目
+router.post('/update', (req, res, next) => {
+  let questionId = parseInt(req.param('questionId'))
+  let updateData = {
+    $set: {
+      questionId : req.body.questionId,
+      questionLevel: req.body.questionLevel,
+      questionTitle: req.body.questionTitle,
+      option_1: req.body.option_1,
+      option_2: req.body.option_2,
+      option_3: req.body.option_3,
+      option_4: req.body.option_4,
+      correctAnswer: req.body.correctAnswer,
+      answerAnalysis: req.body.answerAnalysis
+    }
+  }
+  // console.log(questionId)
+  Questions.update({questionId: questionId}, updateData, (err) => {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: err.message
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: '更新成功'
+      })
+    }
+  })
+})
+
+// 获得题目总数
 router.get('/num', (req, res, next) => {
 
   Questions.find((err, doc) => {
