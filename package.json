@@ -6,12 +6,15 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
+    "crypto": "^1.0.1",
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "mongoose": "^4.13.7",
     "morgan": "~1.8.1",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "time-formater": "^1.0.1"
   }
 }
