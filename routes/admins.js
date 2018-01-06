@@ -19,8 +19,8 @@ function getId() {
 
 // 检查用户
 router.get('/checkuser', (req, res, next) => {
-  let user_name = req.body.user_name
-
+  let user_name = req.param('user_name')
+  console.log('username: ' + user_name)
   Admins.find({user_name: user_name}, (err, doc) => {
     if (err) {
       res.json({
@@ -67,8 +67,35 @@ router.post('/create', (req, res, next) => {
       })
     }
   })
+})
 
-
+// 登录
+router.get('/login', (req, res, next) => {
+  let user_name = req.body.user_name
+  let password = req.body.password
+  
+  Admins.find({user_name: user_name}, (error, doc) => {
+    if (error) {
+      res.json({
+        status: '1',
+        msg: error.message
+      })
+    } else {
+      let hash = doc.password
+      console.log(hash)
+      if (bcrypt.compareSync(password, hash) === false) {
+        res.json({
+          status: '0',
+          msg: 'wrong password'
+        })
+      } else {
+        res.json({
+          status: '2',
+          msg: 'right password'
+        })
+      }
+    }
+  })
 })
 
 module.exports = router;
