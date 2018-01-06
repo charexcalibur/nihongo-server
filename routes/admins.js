@@ -71,9 +71,10 @@ router.post('/create', (req, res, next) => {
 
 // 登录
 router.get('/login', (req, res, next) => {
-  let user_name = req.body.user_name
-  let password = req.body.password
-  
+  let user_name = req.param('user_name')
+  let password = req.param('password')
+  console.log('user_name: ' + user_name)
+  console.log('password: ' + password)
   Admins.find({user_name: user_name}, (error, doc) => {
     if (error) {
       res.json({
@@ -81,8 +82,8 @@ router.get('/login', (req, res, next) => {
         msg: error.message
       })
     } else {
-      let hash = doc.password
-      console.log(hash)
+      let hash = doc[0].password
+      console.log(doc[0].password)
       if (bcrypt.compareSync(password, hash) === false) {
         res.json({
           status: '0',
