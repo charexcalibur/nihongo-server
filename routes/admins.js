@@ -75,11 +75,23 @@ router.get('/login', (req, res, next) => {
   let password = req.param('password')
   console.log('user_name: ' + user_name)
   console.log('password: ' + password)
+  // Admins.find({user_name: user_name}, (error, doc) => {
+  //   if (error) {
+  //     console.log(error)
+  //   } else {
+  //     console.log(doc[0])
+  //   }
+  // })
   Admins.find({user_name: user_name}, (error, doc) => {
     if (error) {
       res.json({
         status: '1',
         msg: error.message
+      })
+    } else if (doc[0] === undefined) {
+      res.json({
+        status: '3',
+        msg: 'unregistered!'
       })
     } else {
       let hash = doc[0].password
