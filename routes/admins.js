@@ -103,6 +103,7 @@ router.get('/login', (req, res, next) => {
         })
       } else {
         res.cookie('username', doc[0].user_name, {
+          domain: 'localhost',
           path: '/',
           maxAge: 1000*60*60
         })
@@ -117,7 +118,7 @@ router.get('/login', (req, res, next) => {
 
 // 检查登录状态
 router.get('/checkLogin', (req, res, next) => {
-  console.log(req.cookies)
+  console.log(req.cookies.username)
   if (req.cookies.username) {
     res.json({
       status: '0',
