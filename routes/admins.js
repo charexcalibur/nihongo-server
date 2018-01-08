@@ -117,11 +117,12 @@ router.get('/login', (req, res, next) => {
 
 // 检查登录状态
 router.get('/checkLogin', (req, res, next) => {
-  if (req.cookies.user_name) {
+  console.log(req.cookies)
+  if (req.cookies.username) {
     res.json({
       status: '0',
       msg: '',
-      result: req.cookies.user_name || ''
+      result: req.cookies.username || ''
     })
   } else {
     res.json({
