@@ -102,6 +102,10 @@ router.get('/login', (req, res, next) => {
           msg: 'wrong password'
         })
       } else {
+        res.cookie('username', doc[0].user_name, {
+          path: '/',
+          maxAge: 1000*60*60
+        })
         res.json({
           status: '2',
           msg: 'right password'
@@ -109,6 +113,23 @@ router.get('/login', (req, res, next) => {
       }
     }
   })
+})
+
+// 检查登录状态
+router.get('/checkLogin', (req, res, next) => {
+  if (req.cookies.user_name) {
+    res.json({
+      status: '0',
+      msg: '',
+      result: req.cookies.user_name || ''
+    })
+  } else {
+    res.json({
+      status: '1',
+      msg: '未登录',
+      result: ''
+    })
+  }
 })
 
 module.exports = router;
