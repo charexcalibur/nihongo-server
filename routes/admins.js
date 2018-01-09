@@ -103,7 +103,6 @@ router.get('/login', (req, res, next) => {
         })
       } else {
         res.cookie('username', doc[0].user_name, {
-          domain: 'localhost',
           path: '/',
           maxAge: 1000*60*60
         })
@@ -130,6 +129,25 @@ router.get('/checkLogin', (req, res, next) => {
       status: '1',
       msg: '未登录',
       result: ''
+    })
+  }
+})
+
+// 登出
+router.get('/logout', (req, res, next) => {
+  if (req.cookies.username) {
+    res.cookie('username', '', {
+      path: '/',
+      maxAge: -1
+    })
+    res.json({
+      status: '0',
+      msg: '取消登录'
+    })
+  } else {
+    res.json({
+      status: '1',
+      msg: '未登录'
     })
   }
 })
