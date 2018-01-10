@@ -104,7 +104,7 @@ router.get('/login', (req, res, next) => {
       } else {
         res.cookie('username', doc[0].user_name, {
           path: '/',
-          maxAge: 1000*60*60
+          maxAge: 1000*60*60*2
         })
         res.json({
           status: '2',
