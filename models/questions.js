@@ -7,6 +7,7 @@ const Schema = mongoose.Schema
 let questionSchema = new Schema({
   questionId: Number,
   questionLevel: String,
+  questionType: String,
   questionUnit: String,
   questionTitle: String,
   option_1: String,
