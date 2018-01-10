@@ -51,6 +51,7 @@ router.post("/add", (req, res, next) => {
   Questions.create({
     questionId: req.body.questionId,
     questionLevel: req.body.questionLevel,
+    questionType: req.body.questionType,
     questionUnit: req.body.questionUnit,
     questionTitle: req.body.questionTitle,
     option_1: req.body.option_1,
@@ -82,6 +83,7 @@ router.post('/update', (req, res, next) => {
     $set: {
       questionId : req.body.questionId,
       questionLevel: req.body.questionLevel,
+      questionType: req.body.questionType,
       questionTitle: req.body.questionTitle,
       option_1: req.body.option_1,
       option_2: req.body.option_2,
