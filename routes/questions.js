@@ -130,6 +130,7 @@ router.get('/num', (req, res, next) => {
   })
 })
 
+// 分页逻辑
 router.get("/show", (req, res, next) => {
   let Questions = require('../models/questions')
   let currentPage = parseInt(req.param('currentPage'))
@@ -156,6 +157,7 @@ router.get("/show", (req, res, next) => {
   })
 })
 
+// 删除题目
 router.post('/del', (req, res, next) => {
   let Questions = require('../models/questions')
 
